@@ -1,0 +1,33 @@
+<tool id="mean_quality_calculator" name="Mean Quality Calculator" version="1.0.0">
+    <requirements>
+        <requirement type="package" version="3.8">python</requirement>
+    </requirements>
+    
+    <description>Calculate Mean Quality Score, Length, and GC Content per Read from FASTQ</description>
+    <command>python3 /CLUSTER-FS/galaxy/tools/own_tools/mean_quality/mean_quality.py --input $input --output $output</command>
+
+    <inputs>
+        <param name="input" type="data" format="fastqsanger" label="Input FASTQ File" />
+    </inputs>
+
+    <outputs>
+        <data name="output" format="tabular" label="Read Quality, Length, and GC Content"/>
+    </outputs>
+
+    <help><![CDATA[
+        This tool calculates various metrics from a FASTQ file:
+        - **Read_ID**: Unique identifier for each read.
+        - **Quality**: Mean quality score for each read.
+        - **Length**: Length of the sequence.
+        - **GC_content**: Percentage of G and C nucleotides in the sequence.
+
+        The output is a tabular file containing these columns.
+
+        ### Usage
+        Upload your FASTQ file and run this tool to obtain the detailed information for each read.
+    ]]></help>
+
+    <stdio>
+        <exit_code range="1:" />
+    </stdio>
+</tool>
