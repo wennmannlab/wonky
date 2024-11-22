@@ -1,4 +1,4 @@
-# Wonky - Basic read statistics for Nanopore reads
+# wonky - Basic read statistics for Nanopore reads
 Nanopore FASTQ Read Quality and Content Analysis Tool
 
 This tool extracts unique identifiers from nanopore FASTQ files and calculates essential metrics for each read, including mean quality, read length, and GC content. The output is a tab-delimited file with the following structure:
