@@ -9,7 +9,7 @@
     
     <!-- Command execution -->
     <command>
-        python3 $__tool_directory__/mean_quality.py \
+        python3 $__tool_directory__/wonky.py \
         --input $input \
         --output $output
     </command>
