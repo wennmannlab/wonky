@@ -1,33 +1,73 @@
-<tool id="mean_quality_calculator" name="Mean Quality Calculator" version="1.0.0">
+<tool id="wonky" name="Wonky" version="1.0.0">
+    <!-- Metadata for tool dependencies -->
     <requirements>
         <requirement type="package" version="3.8">python</requirement>
     </requirements>
     
-    <description>Calculate Mean Quality Score, Length, and GC Content per Read from FASTQ</description>
-    <command>python3 /CLUSTER-FS/galaxy/tools/own_tools/mean_quality/mean_quality.py --input $input --output $output</command>
-
+    <!-- Tool description -->
+    <description>Calculate mean quality, length, and GC content for each read from a FASTQ file</description>
+    
+    <!-- Command execution -->
+    <command>
+        python3 $__tool_directory__/mean_quality.py \
+        --input $input \
+        --output $output
+    </command>
+    
+    <!-- Tool parameters (inputs) -->
     <inputs>
         <param name="input" type="data" format="fastqsanger" label="Input FASTQ File" />
+        <param name="include_stats" type="boolean" optional="true" label="Include Summary Statistics in Output">
+            <option value="true">Yes</option>
+            <option value="false" selected="true">No</option>
+        </param>
     </inputs>
-
+    
+    <!-- Tool outputs -->
     <outputs>
         <data name="output" format="tabular" label="Read Quality, Length, and GC Content"/>
     </outputs>
+    
+    <!-- Error handling -->
+    <stdio>
+        <exit_code range="1:" />
+    </stdio>
 
+    <!-- Help section -->
     <help><![CDATA[
-        This tool calculates various metrics from a FASTQ file:
+        ### Tool Description
+        This tool processes a FASTQ file and calculates the following metrics for each read:
         - **Read_ID**: Unique identifier for each read.
         - **Quality**: Mean quality score for each read.
         - **Length**: Length of the sequence.
         - **GC_content**: Percentage of G and C nucleotides in the sequence.
 
-        The output is a tabular file containing these columns.
+        #### Output
+        The tool generates a tabular file with the following columns:
+        - Read_ID
+        - Mean Quality
+        - Length
+        - GC Content
 
-        ### Usage
-        Upload your FASTQ file and run this tool to obtain the detailed information for each read.
+        #### Optional Parameters
+        - *Include Summary Statistics*: Include overall metrics such as average read quality, total length, and mean GC content.
+
+        #### Usage Instructions
+        1. Upload a FASTQ file to Galaxy.
+        2. Run this tool with the desired parameters.
+        3. Download the tabular output for downstream analysis.
+
+        #### Dependencies
+        - Python 3.8 or later
+        - Compatible with FASTQ files in the `fastqsanger` format.
     ]]></help>
 
-    <stdio>
-        <exit_code range="1:" />
-    </stdio>
+    <!-- Tests for ensuring tool correctness -->
+    <tests>
+        <test>
+            <param name="input" value="example.fastqsanger" />
+            <param name="include_stats" value="true" />
+            <output name="output" file="expected_output.tabular" />
+        </test>
+    </tests>
 </tool>
